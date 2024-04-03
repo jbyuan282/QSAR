@@ -4,7 +4,7 @@ from rdkit.Chem import Draw
 import os
 import tensorflow as tf
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Conv2D, MaxPooling2D, GlobalAveragePooling2D, Flatten, Dense, Dropout
+from tensorflow.keras.layers import Conv2D, MaxPooling2D, GlobalAveragePooling2D, Dense, Dropout
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.callbacks import ModelCheckpoint
 from sklearn.metrics import confusion_matrix
@@ -110,7 +110,7 @@ def create_model(input_shape=(300, 300, 3), num_classes=1, num_layers=4, first_f
         model.add(Conv2D(filters, (3, 3), activation='relu'))
         model.add(MaxPooling2D((2, 2)))
 
-    model.add(Flatten())
+    model.add(GlobalAveragePooling2D())
     model.add(Dense(dense_neurons, activation='relu'))
     model.add(Dropout(0.5))
     model.add(Dense(num_classes, activation='sigmoid'))
